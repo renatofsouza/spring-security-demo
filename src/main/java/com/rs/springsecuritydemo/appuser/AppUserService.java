@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -27,6 +28,7 @@ public class AppUserService implements UserDetailsService {
                 new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG,email)));
     }
 
+    @Transactional
     public String signupUser(AppUser appUser){
 
         boolean userExists = appUserRepository.findByEmail(appUser.getEmail()).isPresent();
@@ -47,4 +49,11 @@ public class AppUserService implements UserDetailsService {
         return token;
     }
 
+    public void enableAppUser(String email) {
+        AppUser appUser = appUserRepository.findByEmail(email).orElseThrow(() ->
+                new IllegalStateException("Unable to find user during token authentication."));
+
+        appUser.setEnabled(true);
+        appUserRepository.save(appUser);
+    }
 }
