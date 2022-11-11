@@ -34,7 +34,9 @@ public class AppUserService implements UserDetailsService {
         boolean userExists = appUserRepository.findByEmail(appUser.getEmail()).isPresent();
 
         if(userExists){
+            //TODO: If user already exists but has not confirmed e-mail, then send another token.
             throw new IllegalStateException("Email already taken. ");
+
         }
         String encodedPassword = passwordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);
@@ -45,7 +47,6 @@ public class AppUserService implements UserDetailsService {
         appUserRepository.save(appUser);
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        //TODO send email.
         return token;
     }
 
