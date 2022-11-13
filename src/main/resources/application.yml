@@ -4,17 +4,14 @@ server:
     include-binding-errors: always
 spring:
   datasource:
-    password: root
-    url: jdbc:postgresql://localhost:5432/registration
-    username: postgres
+    url: jdbc:mysql://localhost:3306/user_registration
+    username: generic_user
+    password: CasaDaMaeJoana@01
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
     show-sql: true
+    hibernate:
+      ddl-auto: update
   mail:
     host: localhost
     port: 1025
