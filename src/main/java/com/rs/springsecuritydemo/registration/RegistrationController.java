@@ -1,5 +1,6 @@
 package com.rs.springsecuritydemo.registration;
 
+import com.rs.springsecuritydemo.user.dto.UserRegistration;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping
-    public String register (@RequestBody RegistrationRequest request){
+    public String register (@RequestBody UserRegistration request){
         return registrationService.register(request);
     }
 

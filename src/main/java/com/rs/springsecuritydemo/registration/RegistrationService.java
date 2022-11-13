@@ -8,6 +8,7 @@ import com.rs.springsecuritydemo.email.EmailSender;
 import com.rs.springsecuritydemo.email.EmailService;
 import com.rs.springsecuritydemo.token.ConfirmationToken;
 import com.rs.springsecuritydemo.token.ConfirmationTokenService;
+import com.rs.springsecuritydemo.user.dto.UserRegistration;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ public class RegistrationService {
     private final UserService userService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
-    public String register(RegistrationRequest request) {
+    public String register(UserRegistration request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if (!isValidEmail){
