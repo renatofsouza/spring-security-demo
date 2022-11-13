@@ -1,7 +1,11 @@
 package com.rs.springsecuritydemo.user;
 
+import com.rs.springsecuritydemo.email.EmailSender;
+import com.rs.springsecuritydemo.email.EmailService;
+import com.rs.springsecuritydemo.email.EmailValidator;
 import com.rs.springsecuritydemo.token.ConfirmationToken;
 import com.rs.springsecuritydemo.token.ConfirmationTokenService;
+import com.rs.springsecuritydemo.user.dto.UserRegistration;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +25,9 @@ public class UserService implements UserDetailsService {
     private final static String USER_NOT_FOUND_MSG ="User with e-mail %s not found.";
     private final BCryptPasswordEncoder passwordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+
+    private final EmailValidator emailValidator;
+    private final EmailSender emailSender;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -56,5 +63,27 @@ public class UserService implements UserDetailsService {
 
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    public String register(UserRegistration request) {
+        boolean isValidEmail = emailValidator.test(request.getEmail());
+
+        if (!isValidEmail){
+            throw new IllegalStateException("EMail not valid.");
+        }
+
+        String token = this.signupUser(
+                new User(
+                        request.getFirstName(),
+                        request.getLastName(),
+                        request.getEmail(),
+                        request.getPassword(),
+                        UserRole.USER
+                )
+        );
+
+        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+        emailSender.send(request.getEmail(), EmailService.buildEmail(request.getFirstName(),link));
+        return token;
     }
 }

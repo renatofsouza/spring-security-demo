@@ -22,7 +22,7 @@ public class RegistrationService {
     private final UserService userService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
-    public String register(UserRegistration request) {
+    /*public String register(UserRegistration request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if (!isValidEmail){
@@ -42,7 +42,7 @@ public class RegistrationService {
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
         emailSender.send(request.getEmail(), EmailService.buildEmail(request.getFirstName(),link));
         return token;
-    }
+    }*/
 
     @Transactional
     public String confirmToken(String token){
