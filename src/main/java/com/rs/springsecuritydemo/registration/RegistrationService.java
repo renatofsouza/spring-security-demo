@@ -1,7 +1,7 @@
 package com.rs.springsecuritydemo.registration;
 
 import com.rs.springsecuritydemo.user.User;
-import com.rs.springsecuritydemo.user.AppUserRole;
+import com.rs.springsecuritydemo.user.UserRole;
 import com.rs.springsecuritydemo.user.AppUserService;
 import com.rs.springsecuritydemo.email.EmailSender;
 import com.rs.springsecuritydemo.email.EmailService;
@@ -33,7 +33,7 @@ public class RegistrationService {
                         request.getLastName(),
                         request.getEmail(),
                         request.getPassword(),
-                        AppUserRole.USER
+                        UserRole.USER
                 )
         );
 
