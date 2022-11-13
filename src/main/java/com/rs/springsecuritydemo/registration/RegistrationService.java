@@ -44,6 +44,7 @@ public class RegistrationService {
         return token;
     }*/
 
+/*
     @Transactional
     public String confirmToken(String token){
         ConfirmationToken confirmationToken =
@@ -65,6 +66,7 @@ public class RegistrationService {
         return "Token Confirmed";
 
     }
+*/
 
 
 }
