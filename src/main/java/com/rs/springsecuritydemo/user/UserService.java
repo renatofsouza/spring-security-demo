@@ -82,7 +82,7 @@ public class UserService implements UserDetailsService {
                 )
         );
 
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+        String link = "http://localhost:8080/api/v1/users/registration/confirmation?token=" + token;
         emailSender.send(request.getEmail(), EmailService.buildEmail(request.getFirstName(),link));
         return token;
     }
