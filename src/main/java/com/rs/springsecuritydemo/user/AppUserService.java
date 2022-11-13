@@ -29,32 +29,32 @@ public class AppUserService implements UserDetailsService {
     }
 
     @Transactional
-    public String signupUser(AppUser appUser){
+    public String signupUser(User user){
 
-        boolean userExists = appUserRepository.findByEmail(appUser.getEmail()).isPresent();
+        boolean userExists = appUserRepository.findByEmail(user.getEmail()).isPresent();
 
         if(userExists){
             //TODO: If user already exists but has not confirmed e-mail, then send another token.
             throw new IllegalStateException("Email already taken. ");
 
         }
-        String encodedPassword = passwordEncoder.encode(appUser.getPassword());
-        appUser.setPassword(encodedPassword);
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
 
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken =
-                new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15),appUser);
-        appUserRepository.save(appUser);
+                new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user);
+        appUserRepository.save(user);
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
         return token;
     }
 
     public void enableAppUser(String email) {
-        AppUser appUser = appUserRepository.findByEmail(email).orElseThrow(() ->
+        User user = appUserRepository.findByEmail(email).orElseThrow(() ->
                 new IllegalStateException("Unable to find user during token authentication."));
 
-        appUser.setEnabled(true);
-        appUserRepository.save(appUser);
+        user.setEnabled(true);
+        appUserRepository.save(user);
     }
 }

@@ -1,6 +1,6 @@
 package com.rs.springsecuritydemo.registration;
 
-import com.rs.springsecuritydemo.user.AppUser;
+import com.rs.springsecuritydemo.user.User;
 import com.rs.springsecuritydemo.user.AppUserRole;
 import com.rs.springsecuritydemo.user.AppUserService;
 import com.rs.springsecuritydemo.email.EmailSender;
@@ -28,7 +28,7 @@ public class RegistrationService {
         }
 
         String token = appUserService.signupUser(
-                new AppUser(
+                new User(
                         request.getFirstName(),
                         request.getLastName(),
                         request.getEmail(),
@@ -58,7 +58,7 @@ public class RegistrationService {
         }
 
         confirmationToken.setConfirmedAt(LocalDateTime.now());
-        appUserService.enableAppUser(confirmationToken.getAppUser().getEmail());
+        appUserService.enableAppUser(confirmationToken.getUser().getEmail());
 
         return "Token Confirmed";
 

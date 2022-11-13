@@ -1,6 +1,6 @@
 package com.rs.springsecuritydemo.registration.token;
 
-import com.rs.springsecuritydemo.user.AppUser;
+import com.rs.springsecuritydemo.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,15 +37,15 @@ public class ConfirmationToken {
             nullable = false,
             name = "user_id"
     )
-    private AppUser appUser;
+    private User user;
 
     public ConfirmationToken(String token,
                              LocalDateTime createdAt,
                              LocalDateTime expiresAt,
-                             AppUser appUser) {
+                             User user) {
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
-        this.appUser = appUser;
+        this.user = user;
     }
 }
