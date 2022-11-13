@@ -1,8 +1,8 @@
 package com.rs.springsecuritydemo.registration;
 
-import com.rs.springsecuritydemo.appuser.AppUser;
-import com.rs.springsecuritydemo.appuser.AppUserRole;
-import com.rs.springsecuritydemo.appuser.AppUserService;
+import com.rs.springsecuritydemo.user.AppUser;
+import com.rs.springsecuritydemo.user.AppUserRole;
+import com.rs.springsecuritydemo.user.AppUserService;
 import com.rs.springsecuritydemo.email.EmailSender;
 import com.rs.springsecuritydemo.email.EmailService;
 import com.rs.springsecuritydemo.registration.token.ConfirmationToken;

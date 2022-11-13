@@ -1,4 +1,4 @@
-package com.rs.springsecuritydemo.appuser;
+package com.rs.springsecuritydemo.user;
 
 public enum AppUserRole {
     USER,

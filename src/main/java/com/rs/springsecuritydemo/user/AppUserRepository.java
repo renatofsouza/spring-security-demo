@@ -1,4 +1,4 @@
-package com.rs.springsecuritydemo.appuser;
+package com.rs.springsecuritydemo.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

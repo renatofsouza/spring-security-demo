@@ -1,6 +1,6 @@
 package com.rs.springsecuritydemo.registration.token;
 
-import com.rs.springsecuritydemo.appuser.AppUser;
+import com.rs.springsecuritydemo.user.AppUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

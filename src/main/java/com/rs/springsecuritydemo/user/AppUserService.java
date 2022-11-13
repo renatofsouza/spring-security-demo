@@ -1,4 +1,4 @@
-package com.rs.springsecuritydemo.appuser;
+package com.rs.springsecuritydemo.user;
 
 import com.rs.springsecuritydemo.registration.token.ConfirmationToken;
 import com.rs.springsecuritydemo.registration.token.ConfirmationTokenService;
