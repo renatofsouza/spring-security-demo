@@ -1,4 +1,4 @@
-package com.rs.springsecuritydemo.registration.token;
+package com.rs.springsecuritydemo.token;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

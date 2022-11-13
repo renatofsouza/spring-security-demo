@@ -1,9 +1,8 @@
-package com.rs.springsecuritydemo.registration.token;
+package com.rs.springsecuritydemo.token;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service

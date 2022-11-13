@@ -1,4 +1,4 @@
-package com.rs.springsecuritydemo.registration.token;
+package com.rs.springsecuritydemo.token;
 
 import com.rs.springsecuritydemo.user.User;
 import lombok.Getter;
