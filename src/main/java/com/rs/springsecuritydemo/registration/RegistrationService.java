@@ -2,7 +2,7 @@ package com.rs.springsecuritydemo.registration;
 
 import com.rs.springsecuritydemo.user.User;
 import com.rs.springsecuritydemo.user.UserRole;
-import com.rs.springsecuritydemo.user.AppUserService;
+import com.rs.springsecuritydemo.user.UserService;
 import com.rs.springsecuritydemo.email.EmailSender;
 import com.rs.springsecuritydemo.email.EmailService;
 import com.rs.springsecuritydemo.registration.token.ConfirmationToken;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RegistrationService {
     private final EmailValidator emailValidator;
-    private final AppUserService appUserService;
+    private final UserService userService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
     public String register(RegistrationRequest request) {
@@ -27,7 +27,7 @@ public class RegistrationService {
             throw new IllegalStateException("EMail not valid.");
         }
 
-        String token = appUserService.signupUser(
+        String token = userService.signupUser(
                 new User(
                         request.getFirstName(),
                         request.getLastName(),
@@ -58,7 +58,7 @@ public class RegistrationService {
         }
 
         confirmationToken.setConfirmedAt(LocalDateTime.now());
-        appUserService.enableAppUser(confirmationToken.getUser().getEmail());
+        userService.enableAppUser(confirmationToken.getUser().getEmail());
 
         return "Token Confirmed";
 
