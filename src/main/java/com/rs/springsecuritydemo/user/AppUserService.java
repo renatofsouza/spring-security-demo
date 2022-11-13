@@ -17,21 +17,21 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService {
 
-    private final AppUserRepository appUserRepository;
+    private final UserRepository userRepository;
     private final static String USER_NOT_FOUND_MSG ="User with e-mail %s not found.";
     private final BCryptPasswordEncoder passwordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return appUserRepository.findByEmail(email).orElseThrow(()->
+        return userRepository.findByEmail(email).orElseThrow(()->
                 new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG,email)));
     }
 
     @Transactional
     public String signupUser(User user){
 
-        boolean userExists = appUserRepository.findByEmail(user.getEmail()).isPresent();
+        boolean userExists = userRepository.findByEmail(user.getEmail()).isPresent();
 
         if(userExists){
             //TODO: If user already exists but has not confirmed e-mail, then send another token.
@@ -44,17 +44,17 @@ public class AppUserService implements UserDetailsService {
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken =
                 new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user);
-        appUserRepository.save(user);
+        userRepository.save(user);
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
         return token;
     }
 
     public void enableAppUser(String email) {
-        User user = appUserRepository.findByEmail(email).orElseThrow(() ->
+        User user = userRepository.findByEmail(email).orElseThrow(() ->
                 new IllegalStateException("Unable to find user during token authentication."));
 
         user.setEnabled(true);
-        appUserRepository.save(user);
+        userRepository.save(user);
     }
 }
