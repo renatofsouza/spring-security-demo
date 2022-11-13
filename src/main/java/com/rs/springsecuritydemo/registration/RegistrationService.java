@@ -1,5 +1,6 @@
 package com.rs.springsecuritydemo.registration;
 
+import com.rs.springsecuritydemo.email.EmailValidator;
 import com.rs.springsecuritydemo.user.User;
 import com.rs.springsecuritydemo.user.UserRole;
 import com.rs.springsecuritydemo.user.UserService;

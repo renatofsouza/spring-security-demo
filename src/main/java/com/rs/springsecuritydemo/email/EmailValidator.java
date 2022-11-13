@@ -1,4 +1,4 @@
-package com.rs.springsecuritydemo.registration;
+package com.rs.springsecuritydemo.email;
 
 import org.springframework.stereotype.Service;
 
