@@ -4,7 +4,7 @@ server:
     include-binding-errors: always
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/user_registration
+    url: jdbc:mysql://localhost:3306/user_management
     username: generic_user
     password: CasaDaMaeJoana@01
     driver-class-name: com.mysql.jdbc.Driver
