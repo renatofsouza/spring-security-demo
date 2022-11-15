@@ -1,6 +1,7 @@
 package com.rs.springsecuritydemo.user;
 
 import com.rs.springsecuritydemo.user.dto.UserRegistration;
+import com.rs.springsecuritydemo.user.exception.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserRegistrationController {
     private final UserService userService;
 
+
     @PostMapping
-    public String registerNewUser(@RequestBody UserRegistration request){
+    public String registerNewUser(@RequestBody UserRegistration request) throws UserAlreadyExistsException {
         return userService.register(request);
     }
 

@@ -6,6 +6,7 @@ import com.rs.springsecuritydemo.email.EmailValidator;
 import com.rs.springsecuritydemo.token.ConfirmationToken;
 import com.rs.springsecuritydemo.token.ConfirmationTokenService;
 import com.rs.springsecuritydemo.user.dto.UserRegistration;
+import com.rs.springsecuritydemo.user.exception.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -36,13 +38,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public String signupUser(User user){
+    public String signupUser(User user) throws UserAlreadyExistsException {
 
         boolean userExists = userRepository.findByEmail(user.getEmail()).isPresent();
 
         if(userExists){
             //TODO: If user already exists but has not confirmed e-mail, then send another token.
-            throw new IllegalStateException("Email already taken. ");
+            throw new UserAlreadyExistsException(MessageFormat.format("Email {0} is already taken.",user.getEmail()));
 
         }
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -65,7 +67,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public String register(UserRegistration request) {
+    public String register(UserRegistration request) throws UserAlreadyExistsException{
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if (!isValidEmail){
